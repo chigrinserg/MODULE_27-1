@@ -8,7 +8,7 @@ Logger::Logger(const std::string& filename)
     logfile.open(filename, std::ios::app);
     if (!logfile.is_open())
     {
-        std::cerr << "������ �������� ����� �����" << std::endl;
+        std::cerr << "Îøèáêà îòêðûòèÿ ôàéëà ëîãîâ" << std::endl;
     }
     sm.unlock();
 }
@@ -20,7 +20,7 @@ void Logger::logWriter()
     sm.lock();
     std::string line;
     //sm.lock();
-    std::ifstream in("Messages.txt"); // �������� ���� ��� ������
+    std::ifstream in("Messages.txt"); // îêðûâàåì ôàéë äëÿ ÷òåíèÿ
     if (in.is_open())
     {
         while (std::getline(in, line))
@@ -34,11 +34,14 @@ void Logger::logWriter()
         }
     }
     sm.unlock();
-    in.close();     // ��������� ����
+    in.close();     // çàêðûâàåì ôàéë
 }
 
-void Logger::readLastStr() /*������� ������ ������������ ��������� - ��������� ������ � �����.
-                           �������� � ����� https://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file*/
+void Logger::readLastStr() /*Ôóíêöèÿ ÷òåíèÿ ïåðñîíàëüíûõ ñîîáùåíèé - ïîñëåäíåé ñòðîêè â ôàéëå.
+                           Ïîëó÷åíà ñ ñàéòà https://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file.
+                           Вначале я написал функцию с использованием загрузки файла в вектор с последующим чтением последнего элемента
+                           массива. Но поскольку загрузка вектора имеет квадратичную временную сложность и в случае большого размера текстового
+                           файла это было бы конкретное торможение, поискал альтернативный вариант*/
 {
     sm.lock_shared();
     std::string filename = "logfile.txt";
@@ -70,7 +73,7 @@ void Logger::readLastStr() /*������� ������ ������������ ��������� - ��������� �
         }
         std::string lastLine;
         std::getline(fin, lastLine);                      
-        std::cout << "��������� ������ � ����� ������: " << lastLine << '\n';     
+        std::cout << "Ïîñëåäíÿÿ çàïèñü â ôàéëå àðõèâà: " << lastLine << '\n';     
         sm.unlock_shared();
         fin.close();
     }
