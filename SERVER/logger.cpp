@@ -20,7 +20,7 @@ void Logger::logWriter()
     sm.lock();
     std::string line;
     //sm.lock();
-    std::ifstream in("Messages.txt"); // îêðûâàåì ôàéë äëÿ ÷òåíèÿ
+    std::ifstream in("Messages.txt"); // îêðûâàåì ôàéë äëÿ ÷òåíèÿ 
     if (in.is_open())
     {
         while (std::getline(in, line))
