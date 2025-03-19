@@ -18,7 +18,7 @@ public:
 
     Logger(const std::string& filename);
 
-    ~Logger(){}
+    ~Logger(){} //По всей видимости, вводить процедуру закрытия файла в деструктор нет необходимости, поскольку 
 
     void logWriter();
     void readLastStr();
